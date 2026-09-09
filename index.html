@@ -267,20 +267,57 @@ footer a:hover{color:var(--amarelo)}
   .topbar .brk{display:block}
   .topbar .dot{display:none}
 }
+
+/* ---------- hero com slideshow de fotos ---------- */
+.hero{background:#062A3E}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-bg .sl{
+  position:absolute;inset:0;opacity:0;
+  background-position:center 58%;background-size:cover;background-repeat:no-repeat;
+  animation:heroFade 32s linear infinite;
+  will-change:opacity;
+}
+.hero-bg .sl:nth-child(1){animation-delay:0s}
+.hero-bg .sl:nth-child(2){animation-delay:6.4s}
+.hero-bg .sl:nth-child(3){animation-delay:12.8s}
+.hero-bg .sl:nth-child(4){animation-delay:19.2s}
+.hero-bg .sl:nth-child(5){animation-delay:25.6s}
+@keyframes heroFade{
+  0%{opacity:0} 3%{opacity:1} 18%{opacity:1} 21%{opacity:0} 100%{opacity:0}
+}
+.hero::before{
+  z-index:1;
+  background:linear-gradient(96deg,
+    rgba(4,32,47,.94) 0%, rgba(4,32,47,.88) 40%,
+    rgba(4,32,47,.62) 74%, rgba(4,32,47,.48) 100%);
+}
+.hero .wrap{z-index:2}
+.hero h1{color:#fff}
+.hero .lead{color:rgba(255,255,255,.88)}
+.hero .hero-meta{color:rgba(255,255,255,.86)}
+.hero .hero-meta svg{color:var(--amarelo)}
+.hero .eyebrow{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.34);color:#fff}
+.hero .btn-sec{background:transparent;color:#fff;border-color:rgba(255,255,255,.72)}
+.hero .btn-sec:hover{background:rgba(255,255,255,.15)}
+@media(max-width:700px){
+  .hero-bg .sl{background-position:center 62%}
+  .hero::before{background:linear-gradient(180deg,
+    rgba(4,32,47,.82) 0%, rgba(4,32,47,.88) 55%, rgba(4,32,47,.92) 100%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-bg .sl{animation:none;opacity:0}
+  .hero-bg .sl:nth-child(1){opacity:1}
+}
 </style>
 </head>
 <body>
 
 <!-- ==========================================================
-     MARCADORES A PREENCHER — busque por [ ] e substitua:
-       (62) 4105-6909       ex: (62) 3000-0000  — linha direta DA UNIDADE
-       556241056909       ex: 556230000000    — só números, com 55
-       556241056909       ex: 5562900000000   — só números, com 55
-       [RAZAO_SOCIAL]   razão social exata do cartão CNPJ
-       [CNPJ]           ex: 00.000.000/0001-00
-       [PRECO_*]        faixas de preço (ou apague os blocos .preco)
-       [ANO_INICIO]     ano de início da operação (ou apague o bloco)
-       vistoria-aparecida.vercel.app no <link canonical> e no JSON-LD
+     Dados preenchidos em 09/09/2026.
+     Pendente de decisao: numero do endereco (cartao CNPJ e placa
+     da unidade indicam "Av. Rio Verde, S/N, Qd. 23 - Lt. 001E";
+     a pagina exibe "Av. Rio Verde, 23" em 4 lugares).
+     Fotos do hero: hero-1.jpg .. hero-5.jpg na raiz do repo.
      ========================================================== -->
 
 <div class="topbar">
@@ -307,6 +344,13 @@ footer a:hover{color:var(--amarelo)}
 <main>
 
 <section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="sl" style="background-image:url(hero-1.jpg)"></div>
+    <div class="sl" style="background-image:url(hero-2.jpg)"></div>
+    <div class="sl" style="background-image:url(hero-3.jpg)"></div>
+    <div class="sl" style="background-image:url(hero-4.jpg)"></div>
+    <div class="sl" style="background-image:url(hero-5.jpg)"></div>
+  </div>
   <div class="wrap">
     <span class="eyebrow"><i></i> Atendimento no mesmo dia</span>
     <h1>Vistoria veicular em <em>Aparecida de Goiânia</em></h1>
@@ -342,7 +386,7 @@ footer a:hover{color:var(--amarelo)}
   <div class="wrap strip-in">
     <div><b>Mesmo dia</b><span>Agendamento rápido pelo WhatsApp</span></div>
     <div><b>Laudo digital</b><span>Enviado direto no seu celular</span></div>
-    <div><b>Desde [ANO_INICIO]</b><span>Atendendo a região metropolitana</span></div>
+    <div><b>Desde 2021</b><span>Atendendo a região metropolitana</span></div>
   </div>
 </div>
 
@@ -495,7 +539,8 @@ Vistoria de transferência<br>
       </div>
     </div>
     <div class="legal">
-      [RAZAO_SOCIAL] — CNPJ [CNPJ]<br>
+      Unidade franqueada TOP Vistoria Veicular<br>
+      TAMARA RAFAELLI DE L A DOS SANTOS — CNPJ 42.949.348/0001-70<br>
       Avenida Rio Verde, 23 — Vila Rosa, Aparecida de Goiânia — GO, 74935-851<br>
       <span class="aviso">Empresa privada de vistoria veicular. Não somos órgão público e não representamos o DETRAN.</span>
     </div>
@@ -511,9 +556,9 @@ Vistoria de transferência<br>
 {
   "@context":"https://schema.org",
   "@type":"AutoRepair",
-  "name":"[RAZAO_SOCIAL]",
+  "name":"TOP Vistorias Automotivas — Aparecida de Goiânia",
   "description":"Vistoria veicular em Aparecida de Goiânia: vistoria de transferência e cautelar para carros e motos.",
-  "url":"https://vistoria-aparecida.vercel.app/",
+  "url":"https://topvistoria-goiania-aparecida.vercel.app/",
   "telephone":"+556241056909",
   "priceRange":"$$",
   "address":{
