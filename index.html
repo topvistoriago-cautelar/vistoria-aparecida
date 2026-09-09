@@ -242,7 +242,8 @@ footer a:hover{color:var(--amarelo)}
 
 /* ============ FLUTUANTE ============ */
 .float{
-  position:fixed;bottom:20px;right:20px;z-index:99;
+  position:fixed;bottom:calc(20px + var(--ck-h, 0px));right:20px;z-index:99;
+  transition:bottom .18s;
   background:var(--zap);color:#fff;text-decoration:none;
   padding:15px 22px;border-radius:50px;font-weight:800;font-size:16px;
   box-shadow:0 6px 22px rgba(0,0,0,.28);
@@ -308,7 +309,45 @@ footer a:hover{color:var(--amarelo)}
   .hero-bg .sl{animation:none;opacity:0}
   .hero-bg .sl:nth-child(1){opacity:1}
 }
+
+.legal .lk-pol{color:#B9D3E0;text-decoration:underline;font-weight:600}
+.legal .lk-pol:hover{color:#fff}
+/* tarja de cookies */
+.ck{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  background:#03202F;color:#D7E7EF;
+  border-top:1px solid #0C4A66;
+  padding:14px 18px;font-size:14px;line-height:1.6;
+  display:none;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;
+}
+.ck.on{display:flex}
+.ck a{color:#FFE600;text-decoration:underline}
+.ck button{
+  background:var(--amarelo);color:#12222B;border:0;cursor:pointer;
+  font-weight:800;font-size:14px;padding:10px 22px;border-radius:8px;flex:none;
+}
+.ck button:hover{filter:brightness(.95)}
+@media(max-width:700px){
+  .ck{padding-bottom:16px;font-size:13.5px}
+}
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2156744425200325');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2156744425200325&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -544,7 +583,8 @@ Vistoria de transferência<br>
       Unidade franqueada TOP Vistoria Veicular<br>
       TAMARA RAFAELLI DE L A DOS SANTOS — CNPJ 42.949.348/0001-70<br>
       Avenida Rio Verde, 23 — Vila Rosa, Aparecida de Goiânia — GO, 74935-851<br>
-      <span class="aviso">Empresa privada de vistoria veicular credenciada pelo DETRAN-GO. Não somos órgão público.</span>
+      <span class="aviso">Empresa privada de vistoria veicular credenciada pelo DETRAN-GO. Não somos órgão público.</span><br>
+      <a class="lk-pol" href="privacidade.html">Política de Privacidade</a>
     </div>
   </div>
 </footer>
@@ -584,5 +624,50 @@ Vistoria de transferência<br>
 }
 </script>
 
+
+<!-- Eventos de contato para o Meta Pixel -->
+<script>
+(function(){
+  function disparar(canal, rotulo){
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Contact', {content_category: canal, content_name: rotulo});
+    }
+  }
+  document.addEventListener('click', function(e){
+    var alvo = e.target;
+    if (!alvo || typeof alvo.closest !== 'function') return;
+    var a = alvo.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    var rotulo = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40) || 'sem rotulo';
+    if (href.indexOf('wa.me') > -1) disparar('whatsapp', rotulo);
+    else if (href.indexOf('tel:') === 0) disparar('telefone', rotulo);
+  }, true);
+})();
+</script>
+
+<div class="ck" id="ck" role="region" aria-label="Aviso de cookies">
+  <span>Usamos cookies para medir o desempenho dos nossos anúncios. Veja a <a href="privacidade.html">Política de Privacidade</a>.</span>
+  <button type="button" id="ckok">Entendi</button>
+</div>
+<script>
+(function(){
+  var CHAVE='ck-aceito-v1', el=document.getElementById('ck'), bt=document.getElementById('ckok');
+  if(!el||!bt) return;
+  var raiz=document.documentElement;
+  function medir(){
+    raiz.style.setProperty('--ck-h', el.classList.contains('on') ? (el.offsetHeight + 12) + 'px' : '0px');
+  }
+  var ja=false;
+  try{ ja = localStorage.getItem(CHAVE)==='1'; }catch(e){ ja=false; }
+  if(!ja){ el.classList.add('on'); medir(); }
+  window.addEventListener('resize', medir);
+  bt.addEventListener('click', function(){
+    el.classList.remove('on');
+    medir();
+    try{ localStorage.setItem(CHAVE,'1'); }catch(e){}
+  });
+})();
+</script>
 </body>
 </html>
