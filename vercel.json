@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "topvistoria-goiania-aparecida.vercel.app" }
+      ],
+      "destination": "https://topvistoriago.com.br/$1",
+      "permanent": true
+    }
+  ]
+}
